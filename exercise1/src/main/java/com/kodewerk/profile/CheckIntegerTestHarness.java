@@ -3,7 +3,11 @@ package com.kodewerk.profile;
 import java.util.*;
 import java.io.*;
 
+
 public class CheckIntegerTestHarness {
+
+    private static final boolean OPIMIZED = true;
+
     public static void main(String[] args) throws IOException {
         //try {
             waitForUserInput();
@@ -41,6 +45,25 @@ public class CheckIntegerTestHarness {
     }
 
     public static boolean checkInteger(String testInteger) {
+        if (OPIMIZED) {
+            return checkInteger_OPTIMIZED(testInteger);
+        } else {
+            return checkInteger_SLOW(testInteger);
+        }
+    }
+
+    public static boolean checkInteger_OPTIMIZED(String testInteger) {
+        var len = testInteger.length();
+        if (len < 2 || len > 5) return false; // number x must be 30 >= x <= 39_999 (based on first digit 3 and range 2 - 100_000)
+        if (testInteger.charAt(0) != '3') return false; // first digit is 3
+        for (int i = 0; i < len; i++) {
+            char c = testInteger.charAt(i);
+            if (c < '0' || c > '9') return false; // not a number
+        }
+        return true;
+    }
+
+    public static boolean checkInteger_SLOW(String testInteger) {
         try {
             Integer theInteger = Integer.parseInt(testInteger); //fails if not  a number
             return
