@@ -56,7 +56,7 @@ public class CheckIntegerTestHarness {
         var len = testInteger.length();
         if (len < 2 || len > 5) return false; // number x must be 30 >= x <= 39_999 (based on first digit 3 and range 2 - 100_000)
         if (testInteger.charAt(0) != '3') return false; // first digit is 3
-        for (int i = 0; i < len; i++) {
+        for (int i = 1; i < len; i++) {
             char c = testInteger.charAt(i);
             if (c < '0' || c > '9') return false; // not a number
         }
